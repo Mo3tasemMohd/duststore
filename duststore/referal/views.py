@@ -1,3 +1,5 @@
+from datetime import timedelta, timezone
+import datetime
 from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.decorators import (api_view, authentication_classes, permission_classes)
@@ -97,12 +99,24 @@ def AddReceit(request):
         referCustomer_code = request.data['receipt_owner_referalcode']
         try:
             referCustomer = ReferCustomer.objects.get(referCustomer_code=referCustomer_code)
+            time_refer_customer_created = referCustomer.created_at
+            two_weeks_after_refer_customer_created = referCustomer.created_at + timedelta(days=15)
+            month_after_refer_customer_created = referCustomer.created_at + timedelta(days=3)
+            timeNow = datetime.datetime.now(timezone.utc)
         except ReferCustomer.DoesNotExist:
             return Response({'Error': 'Invalid Referral code'}, status=status.HTTP_400_BAD_REQUEST)
-        serializered_receit.save()
-        referCustomer.ReferCustomer_deals_totalprice += int(request.data['receipt_price'])
+        if(timeNow > month_after_refer_customer_created):
+            return Response({'Error': 'Expired Referral code'}, status=status.HTTP_400_BAD_REQUEST)
+        elif(timeNow < month_after_refer_customer_created):
+            serializered_receit.save()
+
+            if(timeNow > two_weeks_after_refer_customer_created):
+                        referCustomer.ReferCustomer_deals_totalpricelast15days += int(request.data['receipt_price'])
+                        
+            elif(timeNow < two_weeks_after_refer_customer_created and timeNow > time_refer_customer_created ):
+                        referCustomer.ReferCustomer_deals_totalpricefirst15days += int(request.data['receipt_price'])
+
         referCustomer.save()
-        print(referCustomer.ReferCustomer_deals_totalprice)
         return Response(serializered_receit.data, status=status.HTTP_201_CREATED)
     return Response(serializered_receit.errors, status=status.HTTP_400_BAD_REQUEST)
 class AllReceitListAPIView(ListAPIView):
@@ -131,6 +145,42 @@ class ReceitListAPIView(ListAPIView):
         except:
             return Response({'Error': 'Invalid Referal Code'}, status=400)
 
+@api_view(["GET"])
+def getFirst15DaysReceipts(request, refer_code):
+    try:
+        refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
+        two_weeks_after_refer_customer_created = refer_customer.created_at + timedelta(days=4)
+        receipts = Receipt.objects.filter(
+            receipt_owner_referalcode=refer_code,
+            created_at__gte=refer_customer.created_at,
+            created_at__lte=two_weeks_after_refer_customer_created
+        )
+        serialized_receipts = ReceitSerializer(receipts, many=True)
+        return Response(serialized_receipts.data, status=200)
+    except ReferCustomer.DoesNotExist:
+        return Response({"Error - Invalid referal code"}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"Error - {}".format(str(e))}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["GET"])
+def getLast15DaysReceipts(request, refer_code):
+    try:
+        refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
+        two_weeks_after_refer_customer_created = refer_customer.created_at + timedelta(days=4)
+        month_after_refer_customer_created = refer_customer.created_at + timedelta(days=30)
+        receipts = Receipt.objects.filter(
+            receipt_owner_referalcode=refer_code,
+            created_at__gte=two_weeks_after_refer_customer_created,
+            created_at__lte=month_after_refer_customer_created
+        )
+        serialized_receipts = ReceitSerializer(receipts, many=True)
+        return Response(serialized_receipts.data, status=200)
+    except ReferCustomer.DoesNotExist:
+        return Response({"Error - Invalid referal code"}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"Error - {}".format(str(e))}, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(["DELETE"])
 #@permission_classes([IsAuthenticated])
 def deleteReceit(request, id):
@@ -158,6 +208,15 @@ class AllReferCustomersListAPIView(ListAPIView):
     serializer_class = ReferCustomerSerializer
 
 @api_view(["GET"])
+def getReferCustomersByPhone(request):
+    phone_number = request.query_params.get('referCustomer_phone')
+    if not phone_number:
+        return Response({"Error - Please provide a phone number to search for"}, status=status.HTTP_400_BAD_REQUEST)
+    refer_customers = ReferCustomer.objects.filter(referCustomer_phone=phone_number)
+    serialized_refer_customers = ReferCustomerSerializer(refer_customers, many=True)
+    return Response(serialized_refer_customers.data, status=200)
+@api_view(["GET"])
+
 def getReferCustomer(request, id):
     try:
         refercustomer = ReferCustomer.objects.get(id=id)

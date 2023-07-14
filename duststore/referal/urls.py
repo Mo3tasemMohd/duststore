@@ -17,12 +17,17 @@ urlpatterns = [
     
     path('addRefercustomer/', views.AddReferCustomer),
     path('refercustomers/', views.AllReferCustomersListAPIView.as_view(), name='referCustomer_list'),
+    path('refercustomers', views.getReferCustomersByPhone, name='get_refer_customers_by_phone'),
     path('refercustomer/<int:id>/', views.getReferCustomer, name='get_referCustomer'),
     path('refercustomer/<int:id>/delete/', views.deleteReferCustomer, name='referCustomer_delete'),
 
     path('addReceit/', views.AddReceit),
     path('receits/', views.AllReceitListAPIView.as_view(), name='receipt_list'),
     path('receits/<str:refer_code>/', views.ReceitListAPIView.as_view(), name='receipt_list'),
+    path('receits/<str:refer_code>/first15days/', views.getFirst15DaysReceipts, name='receipt_list'),
+    path('receits/<str:refer_code>/last15days/', views.getLast15DaysReceipts, name='receipt_list'),
+
+
     path('receit/<int:id>/', views.getReceit, name='get_receit'),
     path('receit/<int:id>/delete/', views.deleteReceit, name='receipt_delete'),
 
