@@ -71,6 +71,7 @@ class AllProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
 
 @api_view(["GET"])
+#@permission_classes([IsAuthenticated]) 
 def getProduct(request, id):
     try:
         product = Product.objects.get(id=id)
@@ -120,10 +121,13 @@ def AddReceit(request):
         return Response(serializered_receit.data, status=status.HTTP_201_CREATED)
     return Response(serializered_receit.errors, status=status.HTTP_400_BAD_REQUEST)
 class AllReceitListAPIView(ListAPIView):
+   # permission_classes = [IsAuthenticated]
+
     queryset = Receipt.objects.all()
     serializer_class = ReceitSerializer
 
 @api_view(["GET"])
+#@permission_classes([IsAuthenticated]) 
 def getReceit(request, id):
     try:
         receit = Receipt.objects.get(id=id)
@@ -134,6 +138,7 @@ def getReceit(request, id):
     
 
 class ReceitListAPIView(ListAPIView):
+       # permission_classes = [IsAuthenticated]
     serializer_class = ReceitSerializer
 
     def get(self, request, refer_code):
@@ -146,6 +151,7 @@ class ReceitListAPIView(ListAPIView):
             return Response({'Error': 'Invalid Referal Code'}, status=400)
 
 @api_view(["GET"])
+#@permission_classes([IsAuthenticated]) 
 def getFirst15DaysReceipts(request, refer_code):
     try:
         refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
@@ -163,6 +169,7 @@ def getFirst15DaysReceipts(request, refer_code):
         return Response({"Error - {}".format(str(e))}, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(["GET"])
+#@permission_classes([IsAuthenticated]) 
 def getLast15DaysReceipts(request, refer_code):
     try:
         refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
@@ -204,10 +211,12 @@ def AddReferCustomer(request):
     return Response(serializered_refercustomer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AllReferCustomersListAPIView(ListAPIView):
+           # permission_classes = [IsAuthenticated]
     queryset = ReferCustomer.objects.all()
     serializer_class = ReferCustomerSerializer
 
 @api_view(["GET"])
+#@permission_classes([IsAuthenticated]) 
 def getReferCustomersByPhone(request):
     phone_number = request.query_params.get('referCustomer_phone')
     if not phone_number:
@@ -215,8 +224,9 @@ def getReferCustomersByPhone(request):
     refer_customers = ReferCustomer.objects.filter(referCustomer_phone=phone_number)
     serialized_refer_customers = ReferCustomerSerializer(refer_customers, many=True)
     return Response(serialized_refer_customers.data, status=200)
-@api_view(["GET"])
 
+@api_view(["GET"])
+#@permission_classes([IsAuthenticated]) 
 def getReferCustomer(request, id):
     try:
         refercustomer = ReferCustomer.objects.get(id=id)
