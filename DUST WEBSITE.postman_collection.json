@@ -1,0 +1,629 @@
+{
+	"info": {
+		"_postman_id": "73f012b4-7b75-44bc-8537-b3057553e78d",
+		"name": "DUST WEBSITE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9609264",
+		"_collection_link": "https://dark-space-185841.postman.co/workspace/My-Workspace~4eefea60-0943-466c-8ab9-9defcdb068f2/collection/9609264-73f012b4-7b75-44bc-8537-b3057553e78d?action=share&creator=9609264&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "Hatem",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "hatem@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "customer_phone",
+									"value": "01092960624",
+									"type": "text"
+								},
+								{
+									"key": "customer_image",
+									"type": "file",
+									"src": "/F:/PIC/00.jpg"
+								},
+								{
+									"key": "first_name",
+									"value": "X",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "y",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/register/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"username\": \"mo3\",\r\n      \"password\": \"12345\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Roken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"username\": \"mo3\",\r\n      \"password\": \"12345\",\r\n       \"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY4OTUwNTg0MywiaWF0IjoxNjg4OTAxMDQzLCJqdGkiOiJiN2JkMzVkNDljNmU0YzAwYTVmN2ZiZDdmMmVkZjY3NiIsInVzZXJfaWQiOjF9.ra88ktwuZDB3orarIXkY3o_QN4LYazGzLPcmsb4QFZA\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/token/refresh/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/getusers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"getusers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4OTE2MzM3LCJpYXQiOjE2ODg5MDQzMzcsImp0aSI6ImY1MDQ0ZTAwZDM5MTQ1M2Q4NWE0NmE3MTZlNGEzMWFlIiwidXNlcl9pZCI6MX0.ub-Eeo7MNqPqsmm_6ojjDEa743g3iXlvm4FDWMoO6FI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/getuser/2/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"getuser",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Refer Customer",
+			"item": [
+				{
+					"name": "Add Refer Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "referCustomer_name",
+									"value": "Tareq",
+									"type": "text"
+								},
+								{
+									"key": "referCustomer_phone",
+									"value": "01096062930",
+									"type": "text"
+								},
+								{
+									"key": "referCustomer_receipt",
+									"value": "1500",
+									"type": "text"
+								},
+								{
+									"key": "referCustomer_code",
+									"value": "SNMC001",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/addRefercustomer/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"addRefercustomer",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Refer Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/refercustomers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"refercustomers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ReferCustomers By Phone",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get  Specific Refer Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/refercustomer/16",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"refercustomer",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Specific Refer Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/refercustomer/17/delete/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"refercustomer",
+								"17",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Receipt",
+			"item": [
+				{
+					"name": "Add Receit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receipt_owner_name\": \"omar\",\r\n    \"receipt_owner_phone\": \"01096062933\",\r\n    \"receit_description\": \"Receit Description From Postman\",\r\n    \"receipt_price\": \"800\",\r\n    \"receipt_owner_referalcode\":\"SNMC001\",\r\n    \"product\":{\r\n        \"product_name\": \"Shirt\",\r\n        \"product_price\": \"300\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/addReceit/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"addReceit",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Receits With ReferalCode",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/receits/SNMC001",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"receits",
+								"SNMC001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Receits Within 15 Days",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Receits Within 30 Days",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Receits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/receits/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"receits",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specific Receit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/receit/4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"receit",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Receit",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/receit/2/delete/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"receit",
+								"2",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_name",
+									"value": "T-Shirt",
+									"type": "text"
+								},
+								{
+									"key": "product_code",
+									"value": "011063",
+									"type": "text"
+								},
+								{
+									"key": "product_description",
+									"value": "T-Shirt Description From Postman",
+									"type": "text"
+								},
+								{
+									"key": "product_price",
+									"value": "300",
+									"type": "text"
+								},
+								{
+									"key": "product_receit",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/addProduct/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"addProduct",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specific Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/product/4/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"product",
+								"4",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/dust/product/4/delete/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"dust",
+								"product",
+								"4",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
