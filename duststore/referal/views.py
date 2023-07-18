@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status,generics
 from rest_framework.generics import ListAPIView
 from rest_framework.generics import DestroyAPIView
+from duststore.permissions import IsSuperUser
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -29,7 +30,11 @@ def register(request):
         serializer = CustomerSerializer(data=request.data)
         if serializer.is_valid():
             
+            serializer.validated_data['is_active'] = True
+            
+            # Save the new customer object
             customer = serializer.save()
+
             tokens = customer.get_tokens()
             response_data = {
                 'customer': serializer.data,
@@ -41,11 +46,12 @@ def register(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GetCustomers(generics.ListAPIView):
+    permission_classes = [IsSuperUser]
     queryset=Customer.objects.all()
     serializer_class=CustomerSerializer
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsSuperUser])
 def GetCustomer(request, id):
     try:
         customer = Customer.objects.get(id=id)
@@ -57,9 +63,8 @@ def GetCustomer(request, id):
 """PRODUCT"""
 
 @api_view(["POST"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def AddProduct(request):
-  
     serializered_product = ProductSerializer(data=request.data)
     if serializered_product.is_valid():
         serializered_product.save()
@@ -67,11 +72,12 @@ def AddProduct(request):
     return Response(serializered_product.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AllProductListAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
 @api_view(["GET"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def getProduct(request, id):
     try:
         product = Product.objects.get(id=id)
@@ -81,7 +87,7 @@ def getProduct(request, id):
         return Response({"Error - This Product Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["DELETE"])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def deleteProduct(request, id):
     try:
         product = Product.objects.get(id=id)
@@ -93,7 +99,7 @@ def deleteProduct(request, id):
 """RECEIPT"""
 
 @api_view(["POST"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def AddReceit(request):
     serializered_receit = ReceitSerializer(data=request.data)
     if serializered_receit.is_valid():
@@ -121,13 +127,13 @@ def AddReceit(request):
         return Response(serializered_receit.data, status=status.HTTP_201_CREATED)
     return Response(serializered_receit.errors, status=status.HTTP_400_BAD_REQUEST)
 class AllReceitListAPIView(ListAPIView):
-   # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     queryset = Receipt.objects.all()
     serializer_class = ReceitSerializer
 
 @api_view(["GET"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def getReceit(request, id):
     try:
         receit = Receipt.objects.get(id=id)
@@ -138,7 +144,7 @@ def getReceit(request, id):
     
 
 class ReceitListAPIView(ListAPIView):
-       # permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     serializer_class = ReceitSerializer
 
     def get(self, request, refer_code):
@@ -151,7 +157,7 @@ class ReceitListAPIView(ListAPIView):
             return Response({'Error': 'Invalid Referal Code'}, status=400)
 
 @api_view(["GET"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def getFirst15DaysReceipts(request, refer_code):
     try:
         refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
@@ -169,7 +175,7 @@ def getFirst15DaysReceipts(request, refer_code):
         return Response({"Error - {}".format(str(e))}, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(["GET"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def getLast15DaysReceipts(request, refer_code):
     try:
         refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
@@ -189,7 +195,7 @@ def getLast15DaysReceipts(request, refer_code):
 
 
 @api_view(["DELETE"])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsSuperUser])
 def deleteReceit(request, id):
     try:
         receit = Receipt.objects.get(id=id)
@@ -201,7 +207,7 @@ def deleteReceit(request, id):
 """REFER CUSTOMER"""
 
 @api_view(["POST"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def AddReferCustomer(request):
   
     serializered_refercustomer = ReferCustomerSerializer(data=request.data)
@@ -211,12 +217,12 @@ def AddReferCustomer(request):
     return Response(serializered_refercustomer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AllReferCustomersListAPIView(ListAPIView):
-           # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = ReferCustomer.objects.all()
     serializer_class = ReferCustomerSerializer
 
 @api_view(["GET"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def getReferCustomersByPhone(request):
     phone_number = request.query_params.get('referCustomer_phone')
     if not phone_number:
@@ -226,7 +232,7 @@ def getReferCustomersByPhone(request):
     return Response(serialized_refer_customers.data, status=200)
 
 @api_view(["GET"])
-#@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated]) 
 def getReferCustomer(request, id):
     try:
         refercustomer = ReferCustomer.objects.get(id=id)
@@ -236,7 +242,7 @@ def getReferCustomer(request, id):
         return Response({"Error - This Refer Customer Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["DELETE"])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsSuperUser])
 def deleteReferCustomer(request, id):
     try:
         refercustomer = ReferCustomer.objects.get(id=id)

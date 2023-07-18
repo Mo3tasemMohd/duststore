@@ -53,7 +53,7 @@ class ReferCustomer(models.Model):
     referCustomer_phone = models.CharField(validators=[phone_regex], max_length = 11, null = False, blank = False)
     referCustomer_receipt = models.IntegerField(null = False, validators=[MinValueValidator(1500)])
     referCustomer_code = models.TextField(max_length=7, unique=True, blank = True)
-    ReferCustomer_deals_totalpricefirst15days = models.IntegerField(default=0)
+    ReferCustomer_deals_totalpricefirst15days = models.IntegerField(default=0) 
     ReferCustomer_deals_totalpricelast15days = models.IntegerField(default=0)
     revenueEnum = (
         (10, 'Ten'),

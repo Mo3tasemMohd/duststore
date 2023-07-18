@@ -104,12 +104,21 @@ WSGI_APPLICATION = 'duststore.wsgi.application'
 
 DATABASES = {
     'default': {
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'dust-database',
+        # 'USER': 'postgres',
+        # 'PASSWORD': '0023055@HEkr',
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dust-database',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': '0023055@HEkr',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'PASSWORD': 'rltYo1GB9cngcLLw6BBN',
+        'HOST': 'containers-us-west-96.railway.app',
+        'PORT': '6968',
+
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
         }
 }
 
