@@ -161,7 +161,7 @@ class ReceitListAPIView(ListAPIView):
 def getFirst15DaysReceipts(request, refer_code):
     try:
         refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
-        two_weeks_after_refer_customer_created = refer_customer.created_at + timedelta(days=4)
+        two_weeks_after_refer_customer_created = refer_customer.created_at + timedelta(days=15)
         receipts = Receipt.objects.filter(
             receipt_owner_referalcode=refer_code,
             created_at__gte=refer_customer.created_at,
@@ -179,7 +179,7 @@ def getFirst15DaysReceipts(request, refer_code):
 def getLast15DaysReceipts(request, refer_code):
     try:
         refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
-        two_weeks_after_refer_customer_created = refer_customer.created_at + timedelta(days=4)
+        two_weeks_after_refer_customer_created = refer_customer.created_at + timedelta(days=15)
         month_after_refer_customer_created = refer_customer.created_at + timedelta(days=30)
         receipts = Receipt.objects.filter(
             receipt_owner_referalcode=refer_code,
