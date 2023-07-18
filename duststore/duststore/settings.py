@@ -138,14 +138,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',
-    'http://localhost:3000',
-    'http://mo3tasem.pythonanywhere.com'
-    # add more origins as needed
-]
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:8080',
+#     'http://localhost:3000',
+#     'http://mo3tasem.pythonanywhere.com'
+#     # add more origins as needed
+# ]
 
 CORS_ALLOW_METHODS = [
     'DELETE',
