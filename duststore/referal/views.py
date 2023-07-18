@@ -127,7 +127,7 @@ def AddReceit(request):
         return Response(serializered_receit.data, status=status.HTTP_201_CREATED)
     return Response(serializered_receit.errors, status=status.HTTP_400_BAD_REQUEST)
 class AllReceitListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
     queryset = Receipt.objects.all()
     serializer_class = ReceitSerializer
@@ -217,7 +217,7 @@ def AddReferCustomer(request):
     return Response(serializered_refercustomer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AllReferCustomersListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     queryset = ReferCustomer.objects.all()
     serializer_class = ReferCustomerSerializer
 
