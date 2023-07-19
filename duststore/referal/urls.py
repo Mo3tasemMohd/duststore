@@ -8,7 +8,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 urlpatterns = [
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+   # path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/', views.CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/',views.register),
     path('getusers/',views.GetCustomers.as_view()),

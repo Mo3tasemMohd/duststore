@@ -10,6 +10,8 @@ from rest_framework.generics import ListAPIView
 from rest_framework.generics import DestroyAPIView
 from duststore.permissions import IsSuperUser
 
+from rest_framework_simplejwt.tokens import AccessToken
+
 from django.contrib.auth.hashers import make_password
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -49,6 +51,37 @@ def register(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        token = response.data.get('access')
+        if token:
+            user_dict = self.get_user(token)
+            response.data['user'] = user_dict
+        else:
+            response.status_code = status.HTTP_400_BAD_REQUEST
+        return response
+    
+    def get_user(self, token):
+        # Extract user information from token
+        # This may depend on the specific implementation of your User model and token payload
+        # Here's an example assuming the user ID is stored in the 'user_id' claim of the token
+        decoded_token = AccessToken(token, verify=False)
+        user_id = decoded_token['user_id']
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        user = User.objects.get(pk=user_id)
+        user_dict = {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'customer_phone':user.customer_phone,
+            'first_name': user.first_name,
+            'last_name':user.last_name,
+            'is_superuser':user.is_superuser,
+            'is_staff':user.is_staff
+        }
+        return user_dict
 class GetCustomers(generics.ListAPIView):
     permission_classes = [IsSuperUser]
     queryset=Customer.objects.all()
