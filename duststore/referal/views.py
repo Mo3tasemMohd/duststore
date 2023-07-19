@@ -10,6 +10,8 @@ from rest_framework.generics import ListAPIView
 from rest_framework.generics import DestroyAPIView
 from duststore.permissions import IsSuperUser
 
+from django.contrib.auth.hashers import make_password
+
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.shortcuts import get_object_or_404
@@ -29,11 +31,13 @@ def register(request):
     if request.method == 'POST':
         serializer = CustomerSerializer(data=request.data)
         if serializer.is_valid():
-            
+
+            password = make_password(serializer.validated_data['password'])
+
             serializer.validated_data['is_active'] = True
             
             # Save the new customer object
-            customer = serializer.save()
+            customer = serializer.save(password = password)
 
             tokens = customer.get_tokens()
             response_data = {
