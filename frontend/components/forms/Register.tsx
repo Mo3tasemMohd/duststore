@@ -1,32 +1,37 @@
 'use client';
 
 import * as React from 'react';
-import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/lib/useAuth';
+import { useRouter } from 'next/navigation';
 
-export function AddReceiptForm() {
+export function RegisterForm() {
     const { toast } = useToast();
-    const { token } = useAuth();
+    const { saveToken } = useAuth();
+    const router = useRouter();
 
     const handleSubmit = React.useCallback(
         (e: React.SyntheticEvent) => {
             e.preventDefault();
-            const { name, phone, receipt, referCode, description } = e.target;
+            const {
+                username,
+                email,
+                password,
+                phone: customer_phone,
+            } = e.target;
 
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}/addReceit/`, {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    receipt_owner_name: name.value,
-                    receipt_owner_phone: phone.value,
-                    receit_description: description.value || '',
-                    receipt_price: receipt.value,
-                    receipt_owner_referalcode: referCode.value,
+                    username: username.value,
+                    email: email.value,
+                    password: password.value,
+                    customer_phone: customer_phone.value,
                 }),
             })
                 .then((res) => Promise.all([res.json(), !res.ok]))
@@ -40,39 +45,38 @@ export function AddReceiptForm() {
                             description,
                             variant: 'destructive',
                         });
+                        return;
                     }
+
+                    saveToken(res.access);
+                    router.push('/login');
                 });
         },
-        [toast]
+        [router, saveToken, toast]
     );
 
     return (
         <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20">
             <h1 className="font-extrabold text-3xl text-center mb-16">
-                Add Receipt
+                Register
             </h1>
-
-            <form
-                onSubmit={handleSubmit}
-                className="grid w-full max-w-sm items-center gap-2 m-auto"
-            >
-                <Input name="name" placeholder="Name" required />
+            <form onSubmit={handleSubmit} className="grid items-center gap-1.5">
+                <Input name="username" placeholder="Username" required />
+                <Input name="email" placeholder="Email" type="email" required />
+                <Input
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    required
+                />
                 <Input
                     name="phone"
                     placeholder="Phone Number"
                     type="tel"
                     required
                 />
-                <Input
-                    name="receipt"
-                    placeholder="Receipt Value"
-                    type="number"
-                    required
-                />
-                <Input name="referCode" placeholder="Refer Code" required />
-                <Input name="description" placeholder="Description" />
-                <Button type="submit" className="mt-2">
-                    Add Receipt
+                <Button className="mt-2" type="submit">
+                    Register
                 </Button>
             </form>
         </div>
