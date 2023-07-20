@@ -11,9 +11,11 @@ export function GetReceipt() {
     const { token } = useAuth();
 
     const getReceipt = React.useCallback(
-        (e: EventTarget) => {
+        (e: React.SyntheticEvent) => {
+            e.preventDefault();
+
             fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/receits/${e.target.code}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/receits/${e.target.code.value}`,
                 {
                     method: 'GET',
                     headers: {
@@ -40,7 +42,10 @@ export function GetReceipt() {
     );
 
     return (
-        <form className="grid w-full max-w-sm items-center gap-2 m-auto mt-20">
+        <form
+            onSubmit={getReceipt}
+            className="grid w-full max-w-sm items-center gap-2 m-auto mt-20"
+        >
             <Input name="code" placeholder="Code" required />
             <Button className="mt-2" type="submit">
                 Get Receipt

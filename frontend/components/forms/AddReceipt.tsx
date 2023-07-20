@@ -10,6 +10,8 @@ export function AddReceiptForm() {
     const { toast } = useToast();
     const { token } = useAuth();
 
+    console.log({ token });
+
     const handleSubmit = React.useCallback(
         (e: React.SyntheticEvent) => {
             e.preventDefault();

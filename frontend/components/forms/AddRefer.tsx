@@ -31,7 +31,7 @@ export function AddReferForm() {
             .then((res) => Promise.all([res.json(), !res.ok]))
             .then(([res, error]) => {
                 if (error) {
-                    const description = res.Error || Object.values(res)[0][0];
+                    const description = res.Error || Object.values(res)[0];
 
                     toast({
                         title: 'Something went wrong!',

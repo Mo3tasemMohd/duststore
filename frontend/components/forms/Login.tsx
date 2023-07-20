@@ -5,17 +5,19 @@ import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/lib/useAuth';
+import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
     const { toast } = useToast();
     const { saveToken } = useAuth();
+    const router = useRouter();
 
     const handleSubmit = React.useCallback(
         (e: React.SyntheticEvent) => {
             e.preventDefault();
             const { username, password } = e.target;
 
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/token/`, {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,8 +30,7 @@ export function LoginForm() {
                 .then((res) => Promise.all([res.json(), !res.ok]))
                 .then(([res, error]) => {
                     if (error) {
-                        const description =
-                            res.Error || Object.values(res)[0][0];
+                        const description = res.Error || Object.values(res)[0];
 
                         toast({
                             title: 'Something went wrong!',
@@ -40,9 +41,10 @@ export function LoginForm() {
                     }
 
                     saveToken(res.access);
+                    router.push('/');
                 });
         },
-        [toast]
+        [router, saveToken, toast]
     );
 
     return (
