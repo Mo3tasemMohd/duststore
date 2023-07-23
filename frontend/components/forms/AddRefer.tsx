@@ -16,7 +16,7 @@ export function AddReferForm() {
         setReferCode(null);
         const { name, phone, receipt } = e.target;
 
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/addRefercustomer/`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/addRefercustomer/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

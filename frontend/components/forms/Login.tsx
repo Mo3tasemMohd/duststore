@@ -17,7 +17,7 @@ export function LoginForm() {
             e.preventDefault();
             const { username, password } = e.target;
 
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}/login/`, {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

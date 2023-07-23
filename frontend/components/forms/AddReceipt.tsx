@@ -17,7 +17,7 @@ export function AddReceiptForm() {
             e.preventDefault();
             const { name, phone, receipt, referCode, description } = e.target;
 
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}/addReceit/`, {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/addReceit/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

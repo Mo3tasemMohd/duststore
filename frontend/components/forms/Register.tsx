@@ -22,7 +22,7 @@ export function RegisterForm() {
                 phone: customer_phone,
             } = e.target;
 
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}/register/`, {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
