@@ -14,6 +14,7 @@ export function AddReferForm() {
     const handleSubmit = React.useCallback((e: React.SyntheticEvent) => {
         e.preventDefault();
         setReferCode(null);
+        // @ts-expect-error
         const { name, phone, receipt } = e.target;
 
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/addRefercustomer/`, {

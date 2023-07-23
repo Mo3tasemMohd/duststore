@@ -15,6 +15,7 @@ export function LoginForm() {
     const handleSubmit = React.useCallback(
         (e: React.SyntheticEvent) => {
             e.preventDefault();
+            // @ts-expect-error
             const { username, password } = e.target;
 
             fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/login/`, {

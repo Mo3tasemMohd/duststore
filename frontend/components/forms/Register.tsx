@@ -16,9 +16,13 @@ export function RegisterForm() {
         (e: React.SyntheticEvent) => {
             e.preventDefault();
             const {
+                // @ts-expect-error
                 username,
+                // @ts-expect-error
                 email,
+                // @ts-expect-error
                 password,
+                // @ts-expect-error
                 phone: customer_phone,
             } = e.target;
 

@@ -15,6 +15,7 @@ export function AddReceiptForm() {
     const handleSubmit = React.useCallback(
         (e: React.SyntheticEvent) => {
             e.preventDefault();
+            // @ts-expect-error
             const { name, phone, receipt, referCode, description } = e.target;
 
             fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/addReceit/`, {
