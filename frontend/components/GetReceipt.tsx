@@ -8,7 +8,7 @@ import { useAuth } from '@/lib/useAuth';
 
 export function GetReceipt() {
     const { toast } = useToast();
-    const { token } = useAuth();
+    //const { token } = useAuth();
 
     const getReceipt = React.useCallback(
         (e: React.SyntheticEvent) => {
@@ -21,7 +21,7 @@ export function GetReceipt() {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
+                       // Authorization: `Bearer ${token}`,
                     },
                 }
             )
@@ -39,7 +39,7 @@ export function GetReceipt() {
                     }
                 });
         },
-        [toast, token]
+        [toast]//, token]
     );
 
     return (

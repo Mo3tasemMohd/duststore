@@ -183,15 +183,14 @@ def getReceit(request, id):
 class ReceitListAPIView(ListAPIView):
     #permission_classes = [IsAuthenticated]
     serializer_class = ReceitSerializer
-
-    def get(self, request, refer_code):
+    def get_queryset(self):
+        refer_code = self.kwargs['refer_code']
         try:
             refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
             queryset = Receipt.objects.filter(receipt_owner_referalcode=refer_customer.referCustomer_code)
-            serializer = self.get_serializer(queryset, many=True)
-            return Response(serializer.data)
+            return queryset
         except:
-            return Response({'Error': 'Invalid Referal Code'}, status=400)
+            return Response({"Error - No Receits With This ReferalCode"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated]) 
