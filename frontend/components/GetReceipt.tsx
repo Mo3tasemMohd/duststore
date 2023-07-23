@@ -16,7 +16,7 @@ export function GetReceipt() {
 
             fetch(
                 // @ts-expect-error
-                `${process.env.NEXT_PUBLIC_API_URL}/receits/${e.target.code.value}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/dust/receits/${e.target.code.value}`,
                 {
                     method: 'GET',
                     headers: {
