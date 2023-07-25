@@ -1,0 +1,16 @@
+
+.App {
+  text-align: center;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  height: 100%;
+}

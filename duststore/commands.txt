@@ -1,0 +1,11 @@
+python -m venv venv
+venv/Scripts/Activate
+
+pip install django
+pip install djangorestframework
+pip install pillow
+pip install djangorestframework-simplejwt
+pip install django-cors-headers
+pip install django-cors-headers
+
+python manage.py createsuperuser
