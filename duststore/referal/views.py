@@ -145,7 +145,7 @@ def AddReceit(request):
             referCustomer = ReferCustomer.objects.get(referCustomer_code=referCustomer_code)
             time_refer_customer_created = referCustomer.created_at
             two_weeks_after_refer_customer_created = referCustomer.created_at + timedelta(days=15)
-            month_after_refer_customer_created = referCustomer.created_at + timedelta(days=3)
+            month_after_refer_customer_created = referCustomer.created_at + timedelta(days=30)
             timeNow = datetime.datetime.now(timezone.utc)
         except ReferCustomer.DoesNotExist:
             return Response({'Error': 'Invalid Referral code'}, status=status.HTTP_400_BAD_REQUEST)
@@ -245,19 +245,20 @@ def deleteReceit(request, id):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated]) 
 def AddReferCustomer(request):
-  
+    print(request)
+    print('xxxxxx')
     serializered_refercustomer = ReferCustomerSerializer(data=request.data)
     if serializered_refercustomer.is_valid():
         serializered_refercustomer.save()
         return Response(serializered_refercustomer.data, status=status.HTTP_201_CREATED)
     return Response(serializered_refercustomer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class AllReferCustomersListAPIView(ListAPIView):
+class AllReferCustomersListAPIView(ListAPIView): 
     #permission_classes = [IsAuthenticated]
     queryset = ReferCustomer.objects.all()
     serializer_class = ReferCustomerSerializer
 
-@api_view(["GET"])
+@api_view(["GET"]) 
 @permission_classes([IsAuthenticated]) 
 def getReferCustomersByPhone(request):
     phone_number = request.query_params.get('referCustomer_phone')

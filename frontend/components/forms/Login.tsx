@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
     const { toast } = useToast();
-    const { saveToken } = useAuth();
+    const { saveToken, saveUser } = useAuth();
     const router = useRouter();
 
     const handleSubmit = React.useCallback(
@@ -40,12 +40,14 @@ export function LoginForm() {
                         });
                         return;
                     }
-
+                    saveUser(res.user);
                     saveToken(res.access);
+                    console.log(res.access);
+                    
                     router.push('/');
                 });
         },
-        [router, saveToken, toast]
+        [router, saveToken, saveUser, toast]
     );
 
     return (

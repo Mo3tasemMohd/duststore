@@ -6,45 +6,56 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/lib/useAuth';
 
+
+
 export function AddReferForm() {
     const [referCode, setReferCode] = React.useState(null);
     const { toast } = useToast();
     const { token } = useAuth();
 
-    const handleSubmit = React.useCallback((e: React.SyntheticEvent) => {
+    console.log(token);
+
+    const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
         setReferCode(null);
         // @ts-expect-error
         const { name, phone, receipt } = e.target;
-
+      
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/addRefercustomer/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                referCustomer_name: name.value,
-                referCustomer_phone: phone.value,
-                referCustomer_receipt: receipt.value,
-            }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            referCustomer_name: name.value,
+            referCustomer_phone: phone.value,
+            referCustomer_receipt: receipt.value,
+          }),
         })
-            .then((res) => Promise.all([res.json(), !res.ok]))
-            .then(([res, error]) => {
-                if (error) {
-                    const description = res.Error || Object.values(res)[0];
-
-                    toast({
-                        title: 'Something went wrong!',
-                        description,
-                        variant: 'destructive',
-                    });
-                    return;
-                }
-
-                setReferCode(() => res.referCustomer_code);
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.referCustomer_code) {
+              setReferCode(res.referCustomer_code);
+            } else {
+              const description = res.Error || Object.values(res)[0];
+      
+              toast({
+                title: 'Something went wrong!',
+                description,
+                variant: 'destructive',
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            toast({
+              title: 'Something went wrong!',
+              description: 'Unable to add refer.',
+              variant: 'destructive',
             });
-    }, []);
+          });
+      };
 
     return (
         <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20">

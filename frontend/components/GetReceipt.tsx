@@ -5,52 +5,142 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/lib/useAuth';
+import { useState } from 'react';
+
+
 
 export function GetReceipt() {
     const { toast } = useToast();
-    //const { token } = useAuth();
+    const [receipts, setReceipts] = React.useState([]);
 
-    const getReceipt = React.useCallback(
-        (e: React.SyntheticEvent) => {
-            e.preventDefault();
-
-            fetch(
-                // @ts-expect-error
-                `${process.env.NEXT_PUBLIC_API_URL}/dust/receits/${e.target.code.value}`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                       // Authorization: `Bearer ${token}`,
-                    },
+    const getAllReceipts = () => {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/receits/MIDR002`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    throw new Error('Unable to retrieve receipts.');
                 }
-            )
-                .then((res) => Promise.all([res.json(), !res.ok]))
-                .then(([res, error]) => {
-                    if (error) {
-                        const description =
-                            res.Error || Object.values(res)[0][0];
-
-                        toast({
-                            title: 'Something went wrong!',
-                            description,
-                            variant: 'destructive',
-                        });
-                    }
+            })
+            .then((data) => {
+                setReceipts(data);
+            })
+            .catch((error) => {
+                console.log(error);
+                toast({
+                    title: 'Something went wrong!',
+                    description: 'Unable to retrieve receipts.',
+                    variant: 'destructive',
                 });
-        },
-        [toast]//, token]
-    );
+            });
+    };
+
+    React.useEffect(() => {
+        getAllReceipts();
+    }, []);
 
     return (
-        <form
-            onSubmit={getReceipt}
-            className="grid w-full max-w-sm items-center gap-2 m-auto mt-20"
-        >
-            <Input name="code" placeholder="Code" required />
-            <Button className="mt-2" type="submit">
-                Get Receipt
-            </Button>
-        </form>
+        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20">
+            {receipts.length === 0 && (
+                <p className="text-center">No receipts found.</p>
+            )}
+            {receipts.length > 0 && (
+                <ul className="list-disc list-inside">
+                    {receipts.map((receipt) => (
+                        <li key={receipt.id}>
+                            <p>Receipt ID: {receipt.id}</p>
+                            <p>Name: {receipt.receipt_owner_name}</p>
+                            <p>Phone: {receipt.receipt_owner_phone}</p>
+                            <p>Description: {receipt.receit_description}</p>
+                            <p>Price: {receipt.receipt_price}</p>
+                            <p>Referral Code: {receipt.receipt_owner_referalcode}</p>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
     );
 }
+
+// export function GetReceipt() {
+//     const { toast } = useToast();
+//     const [receipts, setReceipts] = useState([]);
+  
+//     const getReceipts = async (e) => {
+//       e.preventDefault();
+  
+//       try {
+//         const response = await fetch(
+//             `${process.env.NEXT_PUBLIC_API_URL}/dust/receits/${e.target.code.value}`,
+//             {
+//             method: 'GET',
+//             headers: {
+//               'Content-Type': 'application/json',
+//             },
+//           }
+//         );
+//         const res = await response.json();
+  
+//         if (response.ok) {
+//           // Set the retrieved receipts in state
+//           setReceipts(res.receipts);
+//         } else {
+//           const description = res.Error || Object.values(res)[0][0];
+  
+//           toast({
+//             title: 'Something went wrong!',
+//             description,
+//             variant: 'destructive',
+//           });
+//         }
+//       } catch (error) {
+//         console.log(error); // Log the error message to the console
+//         toast({
+//           title: 'Something went wrong!',
+//           description: 'Please try again later.',
+//           variant: 'destructive',
+//         });
+//       }
+//     };
+  
+//     return (
+//       <div className="grid w-full max-w-md items-center gap-4 m-auto mt-20">
+//         <h1 className="font-extrabold text-3xl text-center mb-16">
+//           Get Receipt
+//         </h1>
+  
+//         <form
+//           onSubmit={getReceipts}
+//           className="grid w-full max-w-md items-center gap-4 m-auto"
+//         >
+//           <Input name="code" placeholder="Code" required />
+//           <Button type="submit" className="mt-2">
+//             Get Receipts
+//           </Button>
+//         </form>
+  
+//         {receipts.length === 0 && (
+//           <p className="text-center mt-8">No receipts found.</p>
+//         )}
+  
+//         {receipts.length > 0 && (
+//           <div className="grid grid-cols-3 gap-2 mt-8">
+//             {receipts.map((receipt) => (
+//               <div key={receipt.id} className="bg-white rounded-lg shadow-md p-4">
+//                 <p>Name: {receipt.receipt_owner_name}</p>
+//                 <p>Phone: {receipt.receipt_owner_phone}</p>
+//                 <p>Receipt Value: {receipt.receipt_price}</p>
+//                 <p>Refer Code: {receipt.receipt_owner_referalcode}</p>
+//                 <p>Description: {receipt.receit_description}</p>
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+//     );
+//   }

@@ -23,10 +23,10 @@ urlpatterns = [
     path('refercustomer/<int:id>/delete/', views.deleteReferCustomer, name='referCustomer_delete'),
 
     path('addReceit/', views.AddReceit),
-    path('receits/', views.AllReceitListAPIView.as_view(), name='receipt_list'),
-    path('receits/<str:refer_code>/', views.ReceitListAPIView.as_view(), name='receipt_list'),
-    path('receits/<str:refer_code>/first15days/', views.getFirst15DaysReceipts, name='receipt_list'),
-    path('receits/<str:refer_code>/last15days/', views.getLast15DaysReceipts, name='receipt_list'),
+    path('receits/', views.AllReceitListAPIView.as_view()),
+    path('receits/<str:refer_code>/', views.ReceitListAPIView.as_view()),
+    path('receits/<str:refer_code>/first15days/', views.getFirst15DaysReceipts),
+    path('receits/<str:refer_code>/last15days/', views.getLast15DaysReceipts),
 
 
     path('receit/<int:id>/', views.getReceit, name='get_receit'),
