@@ -35,7 +35,7 @@ export function AddReceiptForm() {
                 if (res.ok) {
                     toast({
                         title: 'Receipt added successfully!',
-                        variant: 'success',
+                        variant: 'default',
                     });
                 } else {
                     return res.json().then((data) => {
