@@ -35,7 +35,7 @@
   object-fit: cover;
 }
 .featured-products {
-  padding: 3rem 1rem 3rem 1rem; /* reduce padding on small devices */
+  padding: 3rem 1rem 0rem 1rem;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -56,11 +56,13 @@
 
 .two-items-product {
   width: 100%; /* full width on small devices */
+  margin-bottom: 4rem;
 }
 
 .two-items-product *,
 .one-item-product * {
   margin: auto;
+  /* margin-bottom: 4rem; */
 }
 @media (min-width: 1080px) {
   .two-items-product {
@@ -83,7 +85,7 @@
 @media (min-width: 768px) {
   .image-home {
     width: 100%;
-    padding: 4rem 1rem 0rem ;
+    padding: 4rem 1rem 0rem;
     text-align: center;
   }
   .image-home img {

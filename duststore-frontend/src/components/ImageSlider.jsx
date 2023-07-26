@@ -15,17 +15,6 @@ const TiChevronLeftOutline = () => (
       strokeWidth="1"
     />
   </svg>
-  // <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  //   <circle cx="16" cy="16" r="14" fill="white" />
-  //   <path
-  //     d="M9 16h14m-5.5-5.5l-6 6 6 6"
-  //     stroke="black"
-  //     strokeWidth="1.5"
-  //     strokeLinecap="round"
-  //     strokeLinejoin="round"
-  //     fill="none"
-  //   />
-  // </svg>
 );
 
 const TiChevronRightOutline = () => (

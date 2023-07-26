@@ -5,13 +5,31 @@ import { ImageSlider } from "../components/ImageSlider";
 import { SliderData } from "../components/SliderData";
 
 export function Home() {
-  const imagesContext = require.context(
+  const shirtImagesContext = require.context(
     "../../public/products/shirts",
     false,
     /\.(png|jpe?g|svg)$/
   );
-  const imageFilenames = imagesContext.keys();
-  const images = imageFilenames.map((filename) => imagesContext(filename));
+  const shirtImageFilenames = shirtImagesContext.keys();
+  const shirtImages = shirtImageFilenames.map((shirtImageFilenames) => shirtImagesContext(shirtImageFilenames));
+
+
+  const tShirtImagesContext = require.context(
+    "../../public/products/t-shirts",
+    false,
+    /\.(png|jpe?g|svg)$/
+  );
+  const tShirtImageFilenames = tShirtImagesContext.keys();
+  const tShirtImages = tShirtImageFilenames.map((tShirtImageFilenames) => tShirtImagesContext(tShirtImageFilenames));
+
+  const troussersImagesContext = require.context(
+    "../../public/products/troussers",
+    false,
+    /\.(png|jpe?g|svg)$/
+  );
+  const troussersImageFilenames = troussersImagesContext.keys();
+  const troussersImages = troussersImageFilenames.map((troussersImageFilenames) => troussersImagesContext(troussersImageFilenames));
+
 
   return (
     <div className="home-container">
@@ -39,17 +57,14 @@ export function Home() {
           <h1>Featured Products</h1>
         </div>
         <div className="one-item-product">
-          <ImageSlider images={images} />
+          <ImageSlider images={shirtImages} />
         </div>
         <div className="two-items-product">
-          <ImageSlider images={images} />
+          <ImageSlider images={tShirtImages} />
         </div>
         <div className="two-items-product">
-          <ImageSlider images={images} />
+          <ImageSlider images={troussersImages} />
         </div>
-
-        {/* <ImageSlider slides={SliderData} /> */}
-        {/* <ImageSlider images={images} /> */}
       </div>
     </div>
   );

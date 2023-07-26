@@ -53,10 +53,10 @@
   transition: all 0.3s ease-out;
   opacity: var(--active);
 }
-.card img {
+.card-container img {
   display: block;
   max-width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .nav {
@@ -105,12 +105,12 @@
     --card-size: 13rem;
     --translateY: -80%;
     --translateZ: -1.6rem;
-    --chevron-width:2rem;
+    --chevron-width: 2rem;
   }
   .right-chevron-button {
     right: -3rem;
   }
-  
+
   .left-chevron-button {
     left: -3rem;
   }
