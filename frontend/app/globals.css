@@ -4,6 +4,9 @@
  
 @layer base {
   :root {
+    --dark-background : rgb(74, 65, 65);
+    --red-background: rgb(139, 0, 0) ;
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
  
@@ -76,3 +79,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.App {
+  text-align: center;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  height: 100%;
+}
+

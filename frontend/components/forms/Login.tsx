@@ -43,8 +43,8 @@ export function LoginForm() {
                     saveUser(res.user);
                     saveToken(res.access);
                     console.log(res.access);
-                    
-                    router.push('/');
+
+                    location.replace('/')
                 });
         },
         [router, saveToken, saveUser, toast]

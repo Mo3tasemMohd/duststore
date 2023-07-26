@@ -17,6 +17,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        dustPrimary: 'var(--red-background)',
+        dustSecondary: 'var(--dark-background)',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -1,0 +1,110 @@
+.home-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--red-background);
+    min-height: 80vh;
+    position: relative;
+    border: none;
+  }
+  
+  .home-hero {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  
+  .dashboard {
+    width: 100%;
+    padding: 6rem 4rem 0rem 4rem;
+    text-align: center;
+    color: white;
+  }
+  
+  .image-home {
+    position: relative;
+    width: 100%;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  .image-home img {
+    position: relative;
+    /* left: 10rem; */
+    width: 90%;
+    object-fit: cover;
+  }
+  .featured-products {
+    padding: 3rem 1rem 0rem 1rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .featured-products-title {
+    width: 100%;
+    margin-bottom: 2rem;
+    color: white;
+  }
+  
+  .one-item-product {
+    width: 100%;
+    text-align: center;
+    margin: 1rem 0 3rem;
+  }
+  
+  .two-items-product {
+    width: 100%; /* full width on small devices */
+    margin-bottom: 4rem;
+  }
+  
+  .two-items-product *,
+  .one-item-product * {
+    margin: auto;
+    /* margin-bottom: 4rem; */
+  }
+  @media (min-width: 1080px) {
+    .two-items-product {
+      width: 50%;
+    }
+    .image-home {
+      width: 100%;
+      padding: 5rem 1rem 0rem;
+      text-align: center;
+    }
+    .image-home img {
+      position: relative;
+      height: 80%;
+      width: 60%;
+      object-fit: cover;
+      margin: auto;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .image-home {
+      width: 100%;
+      padding: 4rem 1rem 0rem;
+      text-align: center;
+    }
+    .image-home img {
+      position: relative;
+      height: 7 0%;
+      width: 60%;
+      object-fit: cover;
+      margin: auto;
+    }
+    .featured-products {
+      padding: 0rem 3rem 3rem 3rem; /* restore padding on larger devices */
+    }
+  
+    .dashboard {
+      width: 40%;
+      text-align: left;
+    }
+  
+    .image-home {
+      width: 60%;
+    }
+  }

@@ -193,10 +193,12 @@ class ReceitListAPIView(ListAPIView):
         except:
             return Receipt.objects.none()
 @api_view(["GET"])
-@permission_classes([IsAuthenticated]) 
+# @permission_classes([IsAuthenticated]) 
 def getFirst15DaysReceipts(request, refer_code):
     try:
         refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
+        refer_customer_serialized = ReferCustomerSerializer(refer_customer)
+
         two_weeks_after_refer_customer_created = refer_customer.created_at + timedelta(days=15)
         receipts = Receipt.objects.filter(
             receipt_owner_referalcode=refer_code,
@@ -204,17 +206,20 @@ def getFirst15DaysReceipts(request, refer_code):
             created_at__lte=two_weeks_after_refer_customer_created
         )
         serialized_receipts = ReceitSerializer(receipts, many=True)
-        return Response(serialized_receipts.data, status=200)
+        response_data = {
+                    "refer_customer": refer_customer_serialized.data,
+                    "receipts": serialized_receipts.data
+                }
+        return Response(response_data, status=200)    
     except ReferCustomer.DoesNotExist:
         return Response({"Error - Invalid referal code"}, status=status.HTTP_400_BAD_REQUEST)
-    except Exception as e:
-        return Response({"Error - {}".format(str(e))}, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(["GET"])
-@permission_classes([IsAuthenticated]) 
+# @permission_classes([IsAuthenticated]) 
 def getLast15DaysReceipts(request, refer_code):
     try:
         refer_customer = ReferCustomer.objects.get(referCustomer_code=refer_code)
+        refer_customer_serialized = ReferCustomerSerializer(refer_customer)
         two_weeks_after_refer_customer_created = refer_customer.created_at + timedelta(days=15)
         month_after_refer_customer_created = refer_customer.created_at + timedelta(days=30)
         receipts = Receipt.objects.filter(
