@@ -58,9 +58,9 @@ export function AddReferForm() {
       };
 
     return (
-        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20">
+        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20 main-card">
             <h1 className="font-extrabold text-3xl text-center mb-16">
-                Refer Customer
+                REFER CUSTOMER
             </h1>
             <form onSubmit={handleSubmit} className="grid items-center gap-1.5">
                 <Input name="name" placeholder="Name" required />
@@ -76,13 +76,13 @@ export function AddReferForm() {
                     type="number"
                     required
                 />
-                <Button className="mt-2" type="submit">
-                    Add Refer
-                </Button>
+                <button type="submit">
+                    ADD REFER CUSTOMER
+                </button>
             </form>
             {referCode ? (
-                <p className="text-lg text-center font-bold">
-                    Refer Code: {referCode}
+                <p className="text-lg text-center font-bold code">
+                    REFERAL CODE: {referCode}
                 </p>
             ) : null}
         </div>

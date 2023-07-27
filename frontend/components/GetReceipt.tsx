@@ -134,24 +134,24 @@ export function GetReceipt() {
   console.log(customer);
 
   return (
-    <div className="grid w-full max-w-md items-center gap-4 m-auto mt-20">
-      <h1 className="font-extrabold text-3xl text-center mb-16">Get Receipt</h1>
+    <div className="grid w-full max-w-md items-center gap-4 m-auto mt-20 main-card">
+      <h1 className="font-extrabold text-3xl text-center mb-16">RECEIPT</h1>
 
       <form
         onSubmit={getReceipts}
         className="grid w-full max-w-md items-center gap-4 m-auto"
       >
         <Input name="code" placeholder="Code" required />
-        <Button type="submit" className="mt-2">
-          Get Receipts
-        </Button>
+        <button type="submit" className="mt-2">
+          GET RECEIPTS
+        </button>
       </form>
 
-        {customer ? <CustomerCard customer={customer} /> : null}
+        {customer ? <CustomerCard  customer={customer} /> : null}
 
       {receipts?.before15Days.length > 0 && (
         <div className="grid gap-8 mt-8">
-          <h2 className="text-xl font-bold">First 15 days Receipts</h2>
+          <h2 className="text-xl font-bold firstlast">FIRST 15 DAYS DEALS</h2>
           {receipts?.before15Days.map((receipt) => (
             <Receipt key={receipt.id} receipt={receipt} />
           ))}
@@ -160,7 +160,7 @@ export function GetReceipt() {
 
       {receipts?.after15Days.length > 0 && (
         <div className="grid gap-8 mt-8">
-          <h2 className="text-xl">Receipts after 15 days</h2>
+          <h2 className="text-xl">LAST 15 DAYS DEALS</h2>
           {receipts?.after15Days.map((receipt) => (
             <Receipt key={receipt.id} receipt={receipt} />
           ))}
@@ -172,12 +172,12 @@ export function GetReceipt() {
 
 function Receipt({ receipt }) {
   return (
-    <div className=" bg-dustPrimary text-white rounded-lg shadow-md p-4">
-      <p><strong>Name:</strong> {receipt.receipt_owner_name}</p>
-      <p>Phone: {receipt.receipt_owner_phone}</p>
-      <p>Receipt Value: {receipt.receipt_price}</p>
-      <p>Description: {receipt.receit_description}</p>
-      <p>Created at: {new Date(receipt.created_at).toLocaleDateString()}</p>
+    <div className=" rounded-lg shadow-md p-4 customer-card">
+      <p><strong>NAME:</strong> {receipt.receipt_owner_name}</p>
+      <p>MOBILE: {receipt.receipt_owner_phone}</p>
+      <p>RECEIPT: {receipt.receipt_price}</p>
+      <p>DESCRIPTION: {receipt.receit_description}</p>
+      <p>DEAL DATE: {new Date(receipt.created_at).toLocaleDateString()}</p>
     </div>
   );
 }
@@ -194,14 +194,15 @@ function CustomerCard({ customer }) {
   } = customer 
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4">
-      <p>Name: {referCustomer_name}</p>
-      <p>Phone: {referCustomer_phone}</p>
-      <p>Code: {referCustomer_code}</p>
-      <p>Receipt (first 15 days): {ReferCustomer_deals_totalpricefirst15days}</p>
-      <p>Receipt (last 15 days): {ReferCustomer_deals_totalpricelast15days}</p>
-      <p>receipt: {referCustomer_receipt}</p>
-      <p>Created at: {new Date(created_at).toLocaleDateString()}</p>
+    <div className="rounded-lg shadow-md p-4 customer-card">
+      <p>NAME: {referCustomer_name}</p>
+      <p>MOBILE: {referCustomer_phone}</p>
+      <p>REFERAL CODE: {referCustomer_code}</p>
+      <p>RECEIPT: {referCustomer_receipt}</p>
+      <p>DEAL DATE: {new Date(created_at).toLocaleDateString()}</p>
+      <p>FIRST 15 DAYS DEALS: {ReferCustomer_deals_totalpricefirst15days}</p>
+      <p>LAST 15 DAYS DEALS: {ReferCustomer_deals_totalpricelast15days}</p>
+      <p>CASHBACK: {(Math.round((ReferCustomer_deals_totalpricefirst15days*0.1 + ReferCustomer_deals_totalpricelast15days*0.05) * 100) / 100).toFixed(2)} L.E</p>
     </div>
   );
 }

@@ -1,0 +1,25 @@
+.navwords{
+
+    font-weight: bold;
+    
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+}
+.navwords a:hover {
+    color: #AD252F;
+  }
+.user{
+    font-weight: bold;
+    color: #AD252F;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 3.5%;
+    margin-left: 3%;
+
+}
+
+.mens{
+    color: #AD252F;
+    font-weight: bold;
+
+}

@@ -1,7 +1,7 @@
 .footer-container {
-    background-color: var(--red-background);
+    background-color: #AD252F;
     padding-top: 1rem;
-    color: bisque;
+    color: rgb(255, 255, 255);
   }
   .footer {
     box-sizing: border-box;
@@ -9,13 +9,21 @@
     position: relative;
     bottom: 0;
     width: 100%;
+
   }
   
+  .container{
+    padding-bottom: 10px;
+
+  }
   ul {
     list-style: none;
     padding-left: 0;
   }
   
+  .slogan{
+    font-size: 15px;
+  }
   hr {
     margin: 0 !important;
   }

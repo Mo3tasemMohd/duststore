@@ -61,9 +61,9 @@ export function RegisterForm() {
     );
 
     return (
-        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20">
+        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20 main-card">
             <h1 className="font-extrabold text-3xl text-center mb-16">
-                Register
+                REGISTERATION
             </h1>
             <form onSubmit={handleSubmit} className="grid items-center gap-1.5">
                 <Input name="username" placeholder="Username" required />
@@ -80,9 +80,9 @@ export function RegisterForm() {
                     type="tel"
                     required
                 />
-                <Button className="mt-2" type="submit">
-                    Register
-                </Button>
+                <button className="mt-2" type="submit">
+                REGISTER
+                </button>
             </form>
         </div>
     );

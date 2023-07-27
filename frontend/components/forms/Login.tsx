@@ -51,8 +51,8 @@ export function LoginForm() {
     );
 
     return (
-        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20">
-            <h1 className="font-extrabold text-3xl text-center mb-16">Login</h1>
+        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20 main-card">
+            <h1 className="font-extrabold text-3xl text-center mb-16">LOGIN</h1>
             <form onSubmit={handleSubmit} className="grid items-center gap-1.5">
                 <Input name="username" placeholder="Username" required />
                 <Input
@@ -61,9 +61,9 @@ export function LoginForm() {
                     type="password"
                     required
                 />
-                <Button className="mt-2" type="submit">
-                    Login
-                </Button>
+                <button className="mt-2" type="submit">
+                    LOG-IN
+                </button>
             </form>
         </div>
     );

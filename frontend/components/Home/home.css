@@ -1,7 +1,7 @@
 .home-container {
     display: flex;
     flex-wrap: wrap;
-    background-color: var(--red-background);
+    background-color: #AD252F;
     min-height: 80vh;
     position: relative;
     border: none;
@@ -14,7 +14,16 @@
     position: relative;
     padding-bottom: 1rem;
   }
-  
+  .featured{
+    font-size: 30px;
+
+  }
+  .title{
+    font-size: 80px;
+  }
+  .stitle{
+    font-size: 20px;
+  }
   .dashboard {
     width: 100%;
     padding: 6rem 4rem 0rem 4rem;

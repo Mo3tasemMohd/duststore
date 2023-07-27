@@ -41,25 +41,24 @@ export default function Home() {
       <div className="home-hero">
         <div className="dashboard">
           <div>
-            <h1>Welcome to Dust Store</h1>
-            <p>Greatest Store For Your Elegance</p>
+            <h1 className="title">Welcome to Dust Store</h1>
+            <p className="stitle">Greatest Place For Your Elegance</p>
 
             <div className="my-4 d-flex flex-column flex-md-row align-items-center justify-content-md-start">
-              <Button variant="btn btn-outline-light mb-3 mb-md-0 me-md-3">
-                Learn More
-              </Button>
-              <Button variant="btn btn-light" >  Get Started</Button>            </div>
+            <a href="#NEVER-UNDERDRESSED"><Button variant="btn btn-outline-light mb-3 mb-md-0 me-md-3">Learn More</Button></a>
+              
+              </div>
           </div>
         </div>
 
         <div className="image-home">
-            <img src="/dust.jpg" alt="Dust" />
+            <img src="/logoo.jpg" alt="Dust" />
         </div>
       </div>
 
       <div className="featured-products">
         <div className="featured-products-title">
-          <h1>Featured Products</h1>
+          <h1 className="featured">Featured Products</h1>
         </div>
         <div className="one-item-product">
           <ImageSlider images={shirtImages} />

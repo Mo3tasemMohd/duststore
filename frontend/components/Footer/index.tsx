@@ -13,23 +13,19 @@ export function Footer() {
         <div className="container">
           <div className="row ">
             <div className="col-md-6 col-lg-4">
-              <h4 className="pb-2">About DustStore</h4>
-              <p>
-                DustStore Menswear is a brick and mortar clothing store that
-                offers a wide range of trendy and affordable clothing items for
-                men.
+              <h4 className="pb-2">ABOUT US</h4>
+              <p className="slogan">
+                Dust is a Menswear store where we provide our customers with the latest fashion trends. We believe that fashion should be inclusive and accessible to all. <br></br>Our rule is Never Underdressed, Never Goes Out Of Style.
               </p>
             </div>
             <div className="col-md-6 col-lg-4">
-              <h4 className="pb-2">Contact Us</h4>
+              <h4 className="pb-2">CONTACT US </h4>
               <ul className="contact-list">
                 <li>
-                  <i className="fas fa-map-marker-alt"></i> 22 Abd El-Moneim
-                  Sanad, Madinet Al Eelam, Al Agouzah, Giza Governorate Giza,
-                  Giza Governorate, Egypt 12611
+                  <i className="fas fa-map-marker-alt"></i> 22 Abd El-Moneim Sanad, Madinet Al Eelam, <br></br> Al Agouzah, Giza Governorate.
                 </li>
                 <li>
-                  <i className="fas fa-phone"></i>(+20) 0109 606 4808
+                  <i className="fas fa-phone"></i>010 9 606 4 808
                 </li>
                 <li>
                   <i className="fas fa-envelope"></i>info@duststore.com
@@ -37,7 +33,7 @@ export function Footer() {
               </ul>
             </div>
             <div className="col-md-6 col-lg-4">
-              <h4 className="pb-2">Follow Us</h4>
+              <h4 className="pb-2">FOLLOW US</h4>
               <ul className="social-list">
                 <li>
                   <a
@@ -63,7 +59,7 @@ export function Footer() {
           <div className="row pt-2">
             <div className="col-12">
               <p className="text-center">
-                &copy; 2023 DustStore. All rights reserved.
+                &copy; ALL COPYRIGHTS RESERVED FOR DUST TEAM 
               </p>
             </div>
           </div>

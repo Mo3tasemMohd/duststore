@@ -97,46 +97,56 @@ def GetCustomer(request, id):
     except:
         return Response({"Error - This Customer Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
     
+@api_view(["DELETE"])
+@permission_classes([IsSuperUser])
+def DeleteCustomer(request, id):
+    try:
+        customer = Customer.objects.get(id=id)
+        customer.delete()
+        return Response("{} is deleted".format(customer))
+    except:
+        return Response({"Error - This Customer Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
+
 """PRODUCT"""
 
-@api_view(["POST"])
-@permission_classes([IsAuthenticated]) 
-def AddProduct(request):
-    serializered_product = ProductSerializer(data=request.data)
-    if serializered_product.is_valid():
-        serializered_product.save()
-        return Response(serializered_product.data, status=status.HTTP_201_CREATED)
-    return Response(serializered_product.errors, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(["POST"])
+# @permission_classes([IsAuthenticated]) 
+# def AddProduct(request):
+#     serializered_product = ProductSerializer(data=request.data)
+#     if serializered_product.is_valid():
+#         serializered_product.save()
+#         return Response(serializered_product.data, status=status.HTTP_201_CREATED)
+#     return Response(serializered_product.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class AllProductListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+# class AllProductListAPIView(ListAPIView):
+#     permission_classes = [IsAuthenticated]
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
 
-@api_view(["GET"])
-@permission_classes([IsAuthenticated]) 
-def getProduct(request, id):
-    try:
-        product = Product.objects.get(id=id)
-        serialized_Product = ProductSerializer(product)
-        return Response(serialized_Product.data, status=200)
-    except:
-        return Response({"Error - This Product Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(["GET"])
+# @permission_classes([IsAuthenticated]) 
+# def getProduct(request, id):
+#     try:
+#         product = Product.objects.get(id=id)
+#         serialized_Product = ProductSerializer(product)
+#         return Response(serialized_Product.data, status=200)
+#     except:
+#         return Response({"Error - This Product Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(["DELETE"])
-@permission_classes([IsAuthenticated])
-def deleteProduct(request, id):
-    try:
-        product = Product.objects.get(id=id)
-        product.delete()
-        return Response("{} is deleted".format(product))
-    except:
-        return Response({"Error - This Product Does not Exist"}, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(["DELETE"])
+# @permission_classes([IsAuthenticated])
+# def deleteProduct(request, id):
+#     try:
+#         product = Product.objects.get(id=id)
+#         product.delete()
+#         return Response("{} is deleted".format(product))
+#     except:
+#         return Response({"Error - This Product Does not Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 """RECEIPT"""
 
 @api_view(["POST"])
-@permission_classes([IsAuthenticated]) 
+@permission_classes([IsSuperUser]) 
 def AddReceit(request):
     serializered_receit = ReceitSerializer(data=request.data)
     if serializered_receit.is_valid():
@@ -164,13 +174,13 @@ def AddReceit(request):
         return Response(serializered_receit.data, status=status.HTTP_201_CREATED)
     return Response(serializered_receit.errors, status=status.HTTP_400_BAD_REQUEST)
 class AllReceitListAPIView(ListAPIView):
-    #permission_classes = [IsAuthenticated]
+    #@permission_classes([IsSuperUser]) 
 
     queryset = Receipt.objects.all()
     serializer_class = ReceitSerializer
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated]) 
+@permission_classes([IsSuperUser]) 
 def getReceit(request, id):
     try:
         receit = Receipt.objects.get(id=id)
@@ -231,8 +241,6 @@ def getLast15DaysReceipts(request, refer_code):
         return Response(serialized_receipts.data, status=200)
     except ReferCustomer.DoesNotExist:
         return Response({"Error - Invalid referal code"}, status=status.HTTP_400_BAD_REQUEST)
-    except Exception as e:
-        return Response({"Error - {}".format(str(e))}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["DELETE"])
@@ -244,11 +252,21 @@ def deleteReceit(request, id):
         return Response("{} is deleted".format(receit))
     except:
         return Response({"Error - This Receit Does not Exist"}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["DELETE"])
+@permission_classes([IsSuperUser])
+def deleteAllReceits(request):
+    try:
+        receits = Receipt.objects.all()
+        receits.delete()
+        return Response("All Receits are deleted")
+    except:
+        return Response({"Error - Failed to delete all Receits"}, status=status.HTTP_400_BAD_REQUEST)
 
 """REFER CUSTOMER"""
 
 @api_view(["POST"])
-@permission_classes([IsAuthenticated]) 
+@permission_classes([IsSuperUser]) 
 def AddReferCustomer(request):
     print(request)
     print('xxxxxx')
@@ -259,12 +277,12 @@ def AddReferCustomer(request):
     return Response(serializered_refercustomer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AllReferCustomersListAPIView(ListAPIView): 
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsSuperUser]
     queryset = ReferCustomer.objects.all()
     serializer_class = ReferCustomerSerializer
 
 @api_view(["GET"]) 
-@permission_classes([IsAuthenticated]) 
+@permission_classes([IsSuperUser]) 
 def getReferCustomersByPhone(request):
     phone_number = request.query_params.get('referCustomer_phone')
     if not phone_number:
@@ -274,7 +292,7 @@ def getReferCustomersByPhone(request):
     return Response(serialized_refer_customers.data, status=200)
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated]) 
+@permission_classes([IsSuperUser]) 
 def getReferCustomer(request, id):
     try:
         refercustomer = ReferCustomer.objects.get(id=id)
@@ -293,3 +311,12 @@ def deleteReferCustomer(request, id):
     except:
         return Response({"Error - This Refer Customer Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(["DELETE"])
+@permission_classes([IsSuperUser])
+def deleteAllReferCustomers(request):
+    try:
+        refercustomers = ReferCustomer.objects.all()
+        refercustomers.delete()
+        return Response("All Refer Customers are deleted")
+    except:
+        return Response({"Error - Failed to delete all Refer Customers"}, status=status.HTTP_400_BAD_REQUEST)

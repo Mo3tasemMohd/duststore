@@ -14,6 +14,7 @@ urlpatterns = [
     path('register/',views.register),
     path('getusers/',views.GetCustomers.as_view()),
     path('getuser/<int:id>/', views.GetCustomer, name='user_profile'),
+    path('deleteuser/<int:id>/', views.DeleteCustomer, name='user_profile_delete'),
     
     
     path('addRefercustomer/', views.AddReferCustomer),
@@ -21,6 +22,7 @@ urlpatterns = [
     path('refercustomers', views.getReferCustomersByPhone, name='get_refer_customers_by_phone'),
     path('refercustomer/<int:id>/', views.getReferCustomer, name='get_referCustomer'),
     path('refercustomer/<int:id>/delete/', views.deleteReferCustomer, name='referCustomer_delete'),
+    path('refercustomers/delete/', views.deleteAllReferCustomers, name='referCustomers_delete'),
 
     path('addReceit/', views.AddReceit),
     path('receits/', views.AllReceitListAPIView.as_view()),
@@ -31,11 +33,12 @@ urlpatterns = [
 
     path('receit/<int:id>/', views.getReceit, name='get_receit'),
     path('receit/<int:id>/delete/', views.deleteReceit, name='receipt_delete'),
+    path('receits/delete/', views.deleteAllReceits, name='receipt_deletes'),
 
-    path('addProduct/', views.AddProduct),
-    path('products/', views.AllProductListAPIView.as_view(), name='product_list'),
-    path('product/<int:id>/', views.getProduct, name='get_product'),
-    path('product/<int:id>/delete/', views.deleteProduct, name='product_delete'),
+    # path('addProduct/', views.AddProduct),
+    # path('products/', views.AllProductListAPIView.as_view(), name='product_list'),
+    # path('product/<int:id>/', views.getProduct, name='get_product'),
+    # path('product/<int:id>/delete/', views.deleteProduct, name='product_delete'),
 
     
 

@@ -60,9 +60,9 @@ export function AddReceiptForm() {
     };
 
     return (
-        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20">
+        <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20 main-card">
         <h1 className="font-extrabold text-3xl text-center mb-16">
-            Add Receipt
+        RECEIPT
         </h1>
 
         <form
@@ -84,9 +84,9 @@ export function AddReceiptForm() {
             />
             <Input name="referCode" placeholder="Refer Code" required />
             <Input name="description" placeholder="Description" />
-            <Button type="submit" className="mt-2">
-                Add Receipt
-            </Button>
+            <button type="submit" className="mt-2">
+                ADD RECEIPT
+            </button>
         </form>
     </div>    );
 }
