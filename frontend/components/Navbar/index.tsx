@@ -39,18 +39,18 @@ export function NavBar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="">
         <Nav className="ms-auto navwords">
-          <Nav.Link as={Link} href="/" style={{ color: '#AD252F' }} onMouseOver={(e) => e.target.style.color = '#000000'} onMouseOut={(e) => e.target.style.color = '#AD252F'}>HOME</Nav.Link>
-          <Nav.Link as={Link} href='/code'style={{ color: '#AD252F' }} onMouseOver={(e) => e.target.style.color = '#000000'} onMouseOut={(e) => e.target.style.color = '#AD252F'}>REFERAL</Nav.Link>
+          <Nav.Link as={Link} href="/" style={{ color: '#AD252F' }} onMouseOver={(e) => (e.target as HTMLAnchorElement).style.color = '#000000'} onMouseOut={(e) => (e.target as HTMLAnchorElement).style.color = '#AD252F'}>HOME</Nav.Link>
+          <Nav.Link as={Link} href='/code'style={{ color: '#AD252F' }} onMouseOver={(e) => (e.target as HTMLAnchorElement).style.color = '#000000'} onMouseOut={(e) => (e.target as HTMLAnchorElement).style.color = '#AD252F'}>REFERAL</Nav.Link>
           {user ? (
                 <>
-                    <button className='navwords' style={{ color: '#AD252F' }} onMouseOver={(e) => e.target.style.color = '#000000'} onMouseOut={(e) => e.target.style.color = '#AD252F'} onClick={logout}>LOGOUT</button>
+                    <button className='navwords' style={{ color: '#AD252F' }} onMouseOver={(e) => (e.target as HTMLAnchorElement).style.color = '#000000'} onMouseOut={(e) => (e.target as HTMLAnchorElement).style.color = '#AD252F'} onClick={logout}>LOGOUT</button>
                     <p className="user">{user.username}</p>
 
                 </>
             ) : (
                 <>
-                    <Nav.Link as={Link} href="/register" style={{ color: '#AD252F' }} onMouseOver={(e) => e.target.style.color = '#000000'} onMouseOut={(e) => e.target.style.color = '#AD252F'}>REGISTER</Nav.Link>
-                    <Nav.Link as={Link} href="/login" style={{ color: '#AD252F' }} onMouseOver={(e) => e.target.style.color = '#000000'} onMouseOut={(e) => e.target.style.color = '#AD252F'}>LOGIN</Nav.Link>
+                    <Nav.Link as={Link} href="/register" style={{ color: '#AD252F' }} onMouseOver={(e) => (e.target as HTMLAnchorElement).style.color = '#000000'} onMouseOut={(e) => (e.target as HTMLAnchorElement).style.color = '#AD252F'}>REGISTER</Nav.Link>
+                    <Nav.Link as={Link} href="/login" style={{ color: '#AD252F' }} onMouseOver={(e) => (e.target as HTMLAnchorElement).style.color = '#000000'} onMouseOut={(e) => (e.target as HTMLAnchorElement).style.color = '#AD252F'}>LOGIN</Nav.Link>
                 </>
             )}
         </Nav>
