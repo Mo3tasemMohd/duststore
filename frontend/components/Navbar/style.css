@@ -3,12 +3,21 @@
     font-weight: bold;
     
     color: rgb(0, 0, 0);
-    font-size: 20px;
+    font-size: 23px;
 }
 .navwords a:hover {
     color: #AD252F;
   }
+.navwords button:hover {
+    color: #AD252F;
+  }
+
+.nav-link:hover {
+    color: green;
+  }
+
 .user{
+  
     font-weight: bold;
     color: #AD252F;
     font-size: 15px;
@@ -17,7 +26,14 @@
     margin-left: 3%;
 
 }
+.user::before {
+  content: attr(data-name);
+}
 
+.user:hover::before {
+  content: 'Tarek Piety The Greatest - ';
+  
+ }
 .mens{
     color: #AD252F;
     font-weight: bold;

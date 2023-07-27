@@ -8,7 +8,7 @@ export default function Home() {
         <main >
             <div className="max-w-5xl mx-auto mt-12 main-card">
 
-                <div className="flex gap-2 flex-col underline text-xl font-bold">
+                <div className="flex gap-2 flex-col text-xl font-bold">
                     <Link href="/refer/add">REFER CUSTOMER</Link>
                     <Link href="/receipt/add">RECEIPT</Link>
                     <Link href="/receipt/get">PROMO RECEITS</Link>
