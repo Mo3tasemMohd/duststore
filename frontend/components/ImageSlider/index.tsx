@@ -1,40 +1,66 @@
 "use client";
 
-
 import React from "react";
 import "./imageSlider.css";
 
 const TiChevronLeftOutline = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="40"
-    height="40"
+    width="32"
+    height="32"
+    fill="currentColor"
+    className="bi bi-arrow-left-circle-fill"
     viewBox="0 0 16 16"
   >
-    <circle cx="8" cy="8" r="8" fill="white" />
     <path
-      d="M11.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
-      stroke="black"
-      strokeWidth="1"
+      d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+      strokeWidth="3"
     />
   </svg>
 );
 
 const TiChevronRightOutline = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 16 16">
-  <circle cx="8" cy="8" r="8" fill="white" />
-  <path d="M4.5 8.5a.5.5 0 0 0 0 1H10.793l-1.646 1.646a.5.5 0 0 0 .708.708l2.646-2.646a.5.5 0 0 0 0-.708l-2.646-2.646a.5.5 0 0 0-.708.708L10.793 7.5H4.1z" stroke="black" strokeWidth="1" />
-</svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    fill="currentColor"
+    className="bi bi-arrow-right-circle-fill"
+    viewBox="0 0 16 16"
+    style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+  >
+    <path
+      d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+      strokeWidth="6"
+    />
+  </svg>
 );
 
 const MAX_VISIBILITY = 2;
 
+const INTERVAL_TIME = 2500;
+
 const Carousel = ({ children }) => {
   const [active, setActive] = React.useState(0);
   const count = React.Children.count(children);
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+
+  React.useEffect(() => {
+    let interval;
+    if (!isHovered) {
+      interval = setInterval(() => {
+        setActive((active) => (active + 1) % count);
+      }, INTERVAL_TIME);
+    }
+    return () => clearInterval(interval);
+  }, [count, isHovered]);
+
 
   return (
-    <div className="carousel">
+    <div className="carousel" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {active > 0 && (
         <button
           className="nav left left-chevron-button"
