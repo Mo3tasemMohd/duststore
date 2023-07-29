@@ -57,7 +57,7 @@ export default function Home() {
         </div>
 
         <div className="image-home">
-          <img src="/logoo.jpg" alt="Dust" />
+          <img src="/logo.jpeg" alt="Dust" />
         </div>
       </div>
 
