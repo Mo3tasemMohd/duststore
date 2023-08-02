@@ -12,6 +12,7 @@ export default function Home() {
                     <Link href="/refer/add">REFER CUSTOMER</Link>
                     <Link href="/receipt/add">RECEIPT</Link>
                     <Link href="/receipt/get">PROMO RECEITS</Link>
+                    <Link href="/refer/get">REFER CUSTOMERS</Link>
                 </div>
             </div>
         </main>
