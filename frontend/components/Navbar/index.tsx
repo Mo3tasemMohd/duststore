@@ -3,19 +3,17 @@
 import './style.css'
 
 import React from "react";
-import { Navbar, Nav, Button } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
+import { Navbar, Nav } from "react-bootstrap";
 import Link from 'next/link';
 
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
-import { AuthStatus } from "../AuthStatus";
 import { useAuth } from "@/lib/useAuth";
 
-const DynamicBootstrap = dynamic(
-  () => require('bootstrap/dist/js/bootstrap.min.js'),
-  { ssr: false }
-);
+// const DynamicBootstrap = dynamic(
+//   () => require('bootstrap/dist/js/bootstrap.min.js'),
+//   { ssr: false }
+// );
 
 export function NavBar() {
     const { user, logout } = useAuth();

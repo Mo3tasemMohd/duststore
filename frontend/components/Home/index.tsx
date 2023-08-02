@@ -1,58 +1,63 @@
-'use client';
+"use client";
 
-import './home.css'
+import "./home.css";
 import React from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { ImageSlider } from "@/components/ImageSlider";
-import { SliderData } from "@/components/ImageSlider/SliderData";
-
-
 
 const shirtImagesContext = require.context(
-    "/public/products/shirts",
-    false,
-    /\.(png|jpe?g|svg)$/
-  );
-  const shirtImageFilenames = shirtImagesContext.keys();
-  const shirtImages = shirtImageFilenames.map((shirtImageFilenames) => shirtImagesContext(shirtImageFilenames)?.default?.src);
+  "/public/products/shirts",
+  false,
+  /\.(png|jpe?g|svg)$/
+);
+const shirtImageFilenames = shirtImagesContext.keys();
+const shirtImages = shirtImageFilenames.map(
+  (shirtImageFilenames) => shirtImagesContext(shirtImageFilenames)?.default?.src
+);
 
-  console.log({ shirtImagesContext, shirtImageFilenames, shirtImages })
+console.log({ shirtImagesContext, shirtImageFilenames, shirtImages });
 
-  const tShirtImagesContext = require.context(
-    "/public/products/t-shirts",
-    false,
-    /\.(png|jpe?g|svg)$/
-  );
-  const tShirtImageFilenames = tShirtImagesContext.keys();
-  const tShirtImages = tShirtImageFilenames.map((tShirtImageFilenames) => tShirtImagesContext(tShirtImageFilenames)?.default?.src);
+const tShirtImagesContext = require.context(
+  "/public/products/t-shirts",
+  false,
+  /\.(png|jpe?g|svg)$/
+);
+const tShirtImageFilenames = tShirtImagesContext.keys();
+const tShirtImages = tShirtImageFilenames.map(
+  (tShirtImageFilenames) =>
+    tShirtImagesContext(tShirtImageFilenames)?.default?.src
+);
 
-  const troussersImagesContext = require.context(
-    "/public/products/troussers",
-    false,
-    /\.(png|jpe?g|svg)$/
-  );
-  const troussersImageFilenames = troussersImagesContext.keys();
-  const troussersImages = troussersImageFilenames.map((troussersImageFilenames) => troussersImagesContext(troussersImageFilenames)?.default?.src);
+const troussersImagesContext = require.context(
+  "/public/products/troussers",
+  false,
+  /\.(png|jpe?g|svg)$/
+);
+const troussersImageFilenames = troussersImagesContext.keys();
+const troussersImages = troussersImageFilenames.map(
+  (troussersImageFilenames) =>
+    troussersImagesContext(troussersImageFilenames)?.default?.src
+);
 
 export default function Home() {
-
   return (
     <div className="home-container">
       <div className="home-hero">
         <div className="dashboard">
-          <div>
-            <h1 className="title">Welcome to Dust Store</h1>
-            <p className="stitle">Greatest Place For Your Elegance</p>
+          <h1 className="title">Welcome to Dust Store</h1>
+          <p className="stitle">Greatest Place For Your Elegance</p>
 
-            <div className="my-4 d-flex flex-column flex-md-row align-items-center justify-content-md-start">
-            <a href="#NEVER-UNDERDRESSED"><Button variant="btn btn-outline-light mb-3 mb-md-0 me-md-3">Learn More</Button></a>
-              
-              </div>
+          <div className="my-4 d-flex flex-column  ">
+            <a href="#NEVER-UNDERDRESSED">
+              <Button variant="btn btn-outline-light mb-3 mb-md-0 me-md-3">
+                Learn More
+              </Button>
+            </a>
           </div>
         </div>
 
         <div className="image-home">
-            <img src="/logo.jpeg" alt="Dust" />
+          <img src="/logo.jpeg" alt="Dust" />
         </div>
       </div>
 
