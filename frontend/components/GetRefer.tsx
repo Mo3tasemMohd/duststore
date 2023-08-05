@@ -55,43 +55,89 @@ export function GetRefer() {
       
     if (isLoading){
         return null;
-    }
-    return (
+     }
+
+     return (
         <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20 main-card">
+          {refers.length === 0 && (
+            <p className="text-center">No Refers Found.</p>
+          )}
+          {refers.length > 0 && (
+            <ul className="list-disc list-inside">
+              {refers
+                .slice() // Create a copy of the array
+                .reverse() // Reverse the order of the array
+                .map((refer) => (
+                  <h1 key={refer.id}>
+                    <div className="rounded-lg shadow-md p-4 customer-card">
+                      <p>NAME: {refer.referCustomer_name}</p>
+                      <p>MOBILE: {refer.referCustomer_phone}</p>
+                      <p>REFERAL CODE: {refer.referCustomer_code}</p>
+                      <p>RECEIPT: {refer.referCustomer_receipt}</p>
+                      <p>DEAL DATE: {new Date(refer.created_at).toLocaleDateString()}</p>
+                      <p>
+                        FIRST 15 DAYS DEALS: {refer.ReferCustomer_deals_totalpricefirst15days}
+                      </p>
+                      <p>
+                        LAST 15 DAYS DEALS: {refer.ReferCustomer_deals_totalpricelast15days}
+                      </p>
+                      <p>
+                        CASHBACK:{' '}
+                        {(
+                          Math.round(
+                            (refer.ReferCustomer_deals_totalpricefirst15days * 0.1 +
+                              refer.ReferCustomer_deals_totalpricelast15days * 0.05) * 100
+                          ) / 100
+                        ).toFixed(2)}{' '}
+                        L.E
+                      </p>
+                    </div>
+                  </h1>
+                ))}
+            </ul>
+          )}
+        </div>
+      );
+                            
+    }
+
+//     return (
+//         <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20 main-card">
             
-            {refers.length === 0 &&(
-                <p className="text-center">No Refers Found.</p>
-            )}
-            {refers.length > 0 && (
-                <ul className="list-disc list-inside">
-                    {refers.map((refer) => (
-                        <h1 key={refer.id}>
-        <div className="rounded-lg shadow-md p-4 customer-card">
-            <p>NAME: {refer.referCustomer_name}</p>
-            <p>MOBILE: {refer.referCustomer_phone}</p>
-            <p>REFERAL CODE: {refer.referCustomer_code}</p>
-            <p>RECEIPT: {refer.referCustomer_receipt}</p>
-            <p>DEAL DATE: {new Date(refer.created_at).toLocaleDateString()}</p>
-            <p>
-                FIRST 15 DAYS DEALS: {refer.ReferCustomer_deals_totalpricefirst15days}
-            </p>
-            <p>
-                LAST 15 DAYS DEALS: {refer.ReferCustomer_deals_totalpricelast15days}
-            </p>
-            <p>
-                CASHBACK:{' '}
-                {(
-                    Math.round(
-                        (refer.ReferCustomer_deals_totalpricefirst15days * 0.1 +
-                            refer.ReferCustomer_deals_totalpricelast15days * 0.05) * 100) / 100
-                ).toFixed(2)}{' '}
-                L.E
-            </p>
-        </div>
-                        </h1>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
-}
+//             {refers.length === 0 &&(
+//                 <p className="text-center">No Refers Found.</p>
+//             )}
+//             {refers.length > 0 && (
+//                 <ul className="list-disc list-inside">
+//                     {refers.map((refer) => (
+//                         <h1 key={refer.id}>
+//         <div className="rounded-lg shadow-md p-4 customer-card">
+//             <p>NAME: {refer.referCustomer_name}</p>
+//             <p>MOBILE: {refer.referCustomer_phone}</p>
+//             <p>REFERAL CODE: {refer.referCustomer_code}</p>
+//             <p>RECEIPT: {refer.referCustomer_receipt}</p>
+//             <p>DEAL DATE: {new Date(refer.created_at).toLocaleDateString()}</p>
+//             <p>
+//                 FIRST 15 DAYS DEALS: {refer.ReferCustomer_deals_totalpricefirst15days}
+//             </p>
+//             <p>
+//                 LAST 15 DAYS DEALS: {refer.ReferCustomer_deals_totalpricelast15days}
+//             </p>
+//             <p>
+//                 CASHBACK:{' '}
+//                 {(
+//                     Math.round(
+//                         (refer.ReferCustomer_deals_totalpricefirst15days * 0.1 +
+//                             refer.ReferCustomer_deals_totalpricelast15days * 0.05) * 100) / 100
+//                 ).toFixed(2)}{' '}
+//                 L.E
+//             </p>
+//         </div>
+//                         </h1>
+//                     ))}
+//                 </ul>
+//             )}
+//         </div>
+//     );
+// }
+
