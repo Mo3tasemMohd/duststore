@@ -11,9 +11,11 @@ export function GetRefer() {
     const { toast } = useToast();
     const { token } = useAuth();
 
+
     console.log(token); 
 
     const [refers, setRefers] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(true);
 
     const getAllRefers = () => {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/dust/refercustomers/`, {
@@ -32,6 +34,7 @@ export function GetRefer() {
             })  
             .then((data) => {
                 setRefers(data);
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -44,12 +47,19 @@ export function GetRefer() {
     }; 
 
     React.useEffect(() => {
+        if(!token){return;}
         getAllRefers();
-    }, []);
+    }, [token]);
 
+     
+      
+    if (isLoading){
+        return null;
+    }
     return (
         <div className="grid w-full max-w-sm items-center gap-2 m-auto mt-20 main-card">
-            {refers.length === 0 && (
+            
+            {refers.length === 0 &&(
                 <p className="text-center">No Refers Found.</p>
             )}
             {refers.length > 0 && (
