@@ -19,7 +19,7 @@ export function Footer() {
                 Dust is a Menswear store where we provide our customers with the latest fashion trends. We believe that fashion should be inclusive and accessible to all. <br></br>Our rule is Never Underdressed, Never Goes Out Of Style.
               </p>
             </div>
-            <div className="col-md-6 col-lg-4 footer-section" >
+{/*             <div className="col-md-6 col-lg-4 footer-section" >
               <h4 className="pb-4 fs-4">CONTACT US </h4>
               <ul className="contact-list">
                 <li>
@@ -32,9 +32,9 @@ export function Footer() {
                   <i className="fas fa-envelope"></i>info@duststore.com
                 </li>
               </ul>
-            </div>
+            </div> */}
             <div className="col-md-6 col-lg-4 footer-section">
-              <h4 className="pb-4 fs-4">FOLLOW US</h4>
+              <h4 className="pb-4 fs-4">CONTACT US</h4>
               <ul className="social-list ">
                 <li>
                   <a
